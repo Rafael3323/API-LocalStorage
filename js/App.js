@@ -3,8 +3,6 @@ var tarefas = [];
  
 const inputTarefa = document.querySelector(".campo-tarefa");
 const botaoAdicionar = document.querySelector(".botao-adicionar");
-const botaoEditar = document.querySelector(".botao-editar");
-const botaoRemover = document.querySelector(".botao-remover");
 const listaTarefas = document.querySelector(".lista-tarefas");
  
 //Função para adicionar uma tarefa
@@ -19,15 +17,21 @@ function renderizarTarefas(){
         //cria um elemento li para cada tarefa
  
     const itemLista = document.createElement("li");
-    li.nomeClasse = "item-tarefa";
-    li.textContent = tarefaTexto;
+    itemLista.className = "item-tarefa";
+    itemLista.textContent = tarefaTexto;
  
-    botaoRemover = document.createElement("button");
+    const botaoRemover = document.createElement("button");
     botaoRemover.className = "botao-remover";
     botaoRemover.textContent = "Remover";
+    
+    const botaoEditar = document.createElement("button");
+        botaoEditar.className = "botao-Editar";
+        botaoEditar.textContent = "Editar";
+    
+    
  
     //adiciona o botão (clique) de remover a tarefa
-    botaoRemover.addEventListener("click", function() {
+    botaoRemover.addEventListener("click", function(i) {
         tarefas.splice(i, 1); //remove a tarefa do array
         renderizarTarefas(); //atualiza a lista de tarefas
     });
