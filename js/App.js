@@ -1,55 +1,63 @@
 //Array para armazenar as tarefas
-var tarefas = [];
+let tarefas = [];
  
-const inputTarefa = document.querySelector(".campo-tarefa");
-const botaoAdicionar = document.querySelector(".botao-adicionar");
-const listaTarefas = document.querySelector(".lista-tarefas");
+const inputTarefa = document.querySelector(".campo-tarefa"); //<input>
+const botaoAdicionar = document.querySelector(".botao-adicionar"); //<button>
+const listaTarefas = document.querySelector(".lista-tarefas"); //<ul>
+
  
 //Função para adicionar uma tarefa
 function renderizarTarefas(){
     listaTarefas.innerHTML = "";
- 
-    //para percorrer a array com as tarefas alocadas e posicionadas na tela (i)
+    //para percorrer o array com as tarefas alocadas e posicionadas na tela (i)
     for (var i = 0; i < tarefas.length; i++){
-        const tarefaTexto = tarefas[i];
-   
+        const tarefaTexto = tarefas[i]; //texto da tarefa é o valor do array
  
         //cria um elemento li para cada tarefa
+        const itemLista = document.createElement("li");
+        itemLista.className = "item-tarefa";
+        itemLista.textContent = tarefaTexto;
  
-    const itemLista = document.createElement("li");
-    itemLista.className = "item-tarefa";
-    itemLista.textContent = tarefaTexto;
+        //Cria o elemento botão remover para cada tarefa
+        const botaoRemover = document.createElement("button");
+        botaoRemover.className = "botao-remover";
+        botaoRemover.textContent = "Remover";
  
-    const botaoRemover = document.createElement("button");
-    botaoRemover.className = "botao-remover";
-    botaoRemover.textContent = "Remover";
-    
-    const botaoEditar = document.createElement("button");
-        botaoEditar.className = "botao-Editar";
+        //Cria o elemento botão editar para cada tarefa
+        const botaoEditar = document.createElement("button");
+        botaoEditar.className = "botao-editar";
         botaoEditar.textContent = "Editar";
-    
-    
  
-    //adiciona o botão (clique) de remover a tarefa
-    botaoRemover.addEventListener("click", function(i) {
+        //adiciona o botão (clique) de editar a tarefa
+        botaoEditar.addEventListener("click", function() {
+            const novoTexto = prompt("Digite o novo texto da tarefa:");
+            if (novoTexto !== null) {
+                tarefas[i-1] = novoTexto;
+                renderizarTarefas();
+            }
+        });
+        itemLista.appendChild(botaoEditar); //adiciona o botão de editar a tarefa
+ 
+ 
+       //adiciona o botão (clique) de remover a tarefa
+       botaoRemover.addEventListener("click", function(i) {
         tarefas.splice(i, 1); //remove a tarefa do array
         renderizarTarefas(); //atualiza a lista de tarefas
-    });
+        }
+    );
  
-    li.appendChild(botaoRemover); //adiciona o botão de remover a tarefa
-    listaTarefas.appendChild(li); //adiciona a tarefa na lista de tarefas
+     itemLista.appendChild(botaoRemover); //adiciona o botão de remover a tarefa
+     listaTarefas.appendChild(itemLista); //adiciona a tarefa na lista de tarefas
     }
- 
+}
     // Evento para adicionar a tarefa
-    botaoAdicionar.addEventListener("click", function() {
+   botaoAdicionar.addEventListener("click", function(event) {
+        event.preventDefault(); //previne o comportamento padrão do botão
         const novaTarefa = inputTarefa.value.trim(); //pega o valor do input
-       
         if (novaTarefa !== "") { //verifica se o campo não está vazio
             tarefas.push(novaTarefa); //adiciona a tarefa no array
+            console.log(tarefas); //exibe o array no console
             inputTarefa.value = ""; //limpa o campo de texto
             renderizarTarefas(); //atualiza a lista de tarefas
         }
-       
     });
-}
- 
