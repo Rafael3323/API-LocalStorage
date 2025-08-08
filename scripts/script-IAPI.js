@@ -10,6 +10,7 @@ const botaoAdicionar = document.querySelector(".botao-adicionar");
 /*Seleciona a lista de tarefas e aloca na variável listaTarefas
 que será utilzada para exibir as tarefas na tela */
 const listaTarefas = document.querySelector(".lista-tarefas");
+const botaoRemover = document.querySelector(".botao-remover");
 
 
 /*funcão para adicionar uma tarefa na lista de tarefas */
@@ -41,7 +42,8 @@ async function renderizarTarefa() {
        tarefas.forEach(tarefa => {
            const itemLista = document.createElement("li");
            itemLista.className = "item-tarefa";
-           itemLista.textContent = tarefa.Titulo;
+           itemLista.textContent = tarefa.titulo;
+           itemLista.id = tarefa.id;
            
            const botaoRemover = document.createElement("button");
            botaoRemover.className = "botao-remover";
@@ -60,16 +62,64 @@ async function renderizarTarefa() {
         console.error("Erro ao renderizar tarefas:", error);
     }
 }
+/* Função para remover uma tarefa da lista de tarefas */
+async function removerTarefa(id) {
+    try {
+        await fetch(`${urlAPI}/${id}`, {
+            method: "DELETE",
+        });
+        listaTarefas.innerHTML = "";
+        renderizarTarefa();
+    } catch (error) {
+        console.error("Erro ao remover tarefa:", error);
+    }
+}
+/*botão de remover */
+listaTarefas.addEventListener("click", function(evento) {
+    if (evento.target.classList.contains("botao-remover")) {
+        const id = evento.target.parentNode.id;
+        removerTarefa(id);
+    }
+})
+/* função para editar a tarefa escolhida*/
+async function editarTarefa(id, titulo) {
+    
+    
+    try {
+        await fetch(`${urlAPI}/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ titulo: titulo }),
+        });
+        listaTarefas.innerHTML = "";
+        renderizarTarefa();
+    } catch (error) {
+        console.error("Erro ao editar tarefa:", error);
+    }
 
+}
 
+/*botão de editar */
+listaTarefas.addEventListener("click", function(evento) {
+    if (evento.target.classList.contains("botao-editar")) {
+        const id = evento.target.parentNode.id;
+        const novoTitulo = prompt("Digite o novo texto da tarefa:");
+        if (novoTitulo) {
+            editarTarefa(id, novoTitulo);
+        }
+    }
+})
+ 
 botaoAdicionar.addEventListener("click", function(evento) {
     evento.preventDefault();
     const novaTarefa = inputTarefa.value.trim();
     if (novaTarefa !== "") {
+        listaTarefas.innerHTML = "";
         adicionarTarefa(novaTarefa);
         inputTarefa.value = "";
     }
 })
 
 renderizarTarefa();
-
