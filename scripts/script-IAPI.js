@@ -3,7 +3,11 @@ const urlAPI= "http://localhost:3000/tarefas";
 presente na pagina HTML para manbipula-la
 aloca o valor que o usuario diginar no input da variavel inputTarefa
 */
-const inputTarefa = document.querySelector(".campo-tarefa");
+const inputTarefa = document.querySelector("#tarefa");
+const inputDescricao = document.querySelector("#descricao");
+const inputStatus = document.querySelector("#status");
+const inputPrioridade = document.querySelector("#prioridade");
+const inputData = document.querySelector("#data");
 /* seleciona o botão adicionar tarefa e aloca a variável
 botaoAdicionar, que será utilizado ára adicionar a tarefa*/ 
 const botaoAdicionar = document.querySelector(".botao-adicionar");
@@ -14,7 +18,7 @@ const botaoRemover = document.querySelector(".botao-remover");
 
 
 /*funcão para adicionar uma tarefa na lista de tarefas */
-async function adicionarTarefa(titulo) {
+async function adicionarTarefa(titulo, descricao, status, prioridade, data) {
     try {
 
     await fetch(urlAPI, {
@@ -22,7 +26,7 @@ async function adicionarTarefa(titulo) {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ titulo: titulo }),
+        body: JSON.stringify({ titulo: titulo, descricao: descricao, status: status, prioridade: prioridade, data_entrega: data }),
 
     })
     renderizarTarefa();
@@ -42,7 +46,7 @@ async function renderizarTarefa() {
        tarefas.forEach(tarefa => {
            const itemLista = document.createElement("li");
            itemLista.className = "item-tarefa";
-           itemLista.textContent = tarefa.titulo;
+           itemLista.textContent = "Titulo: " + tarefa.titulo + " - Descricao: " + tarefa.descricao + " - Status: " + tarefa.status + " - Prioridade: " + tarefa.prioridade +" - Data de criacao:" + tarefa.data_criacao+" - Data de entrega: " + tarefa.data_entrega.split("T")[0].split("-").reverse().join("/");
            itemLista.id = tarefa.id;
            
            const botaoRemover = document.createElement("button");
@@ -82,7 +86,7 @@ listaTarefas.addEventListener("click", function(evento) {
     }
 })
 /* função para editar a tarefa escolhida*/
-async function editarTarefa(id, titulo) {
+async function editarTarefa(id, titulo, descricao, status, prioridade, data) {
     
     
     try {
@@ -91,7 +95,7 @@ async function editarTarefa(id, titulo) {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ titulo: titulo }),
+            body: JSON.stringify({ titulo: titulo, descricao: descricao, status: status, prioridade: prioridade, data_entrega: data }),
         });
         listaTarefas.innerHTML = "";
         renderizarTarefa();
@@ -106,8 +110,12 @@ listaTarefas.addEventListener("click", function(evento) {
     if (evento.target.classList.contains("botao-editar")) {
         const id = evento.target.parentNode.id;
         const novoTitulo = prompt("Digite o novo texto da tarefa:");
+        const novaDescricao = prompt("Digite a nova descrição da tarefa:");
+        const novoStatus = prompt("Digite o novo status da tarefa:");
+        const novaPrioridade = prompt("Digite a nova prioridade da tarefa:");
+        const novaData = prompt("Digite a nova data de entrega da tarefa:");
         if (novoTitulo) {
-            editarTarefa(id, novoTitulo);
+            editarTarefa(id, novoTitulo, novaDescricao, novoStatus, novaPrioridade, novaData);
         }
     }
 })
@@ -115,10 +123,18 @@ listaTarefas.addEventListener("click", function(evento) {
 botaoAdicionar.addEventListener("click", function(evento) {
     evento.preventDefault();
     const novaTarefa = inputTarefa.value.trim();
+    const novaDescricao = inputDescricao.value.trim();
+    const novoStatus = inputStatus.value.trim();
+    const novaPrioridade = inputPrioridade.value.trim();
+    const novaData = inputData.value.trim();
     if (novaTarefa !== "") {
         listaTarefas.innerHTML = "";
-        adicionarTarefa(novaTarefa);
+        adicionarTarefa(novaTarefa, novaDescricao, novoStatus, novaPrioridade, novaData);
         inputTarefa.value = "";
+        inputDescricao.value = "";
+        inputStatus.value = "";
+        inputPrioridade.value = "";
+        inputData.value = "";
     }
 })
 

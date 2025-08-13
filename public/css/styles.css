@@ -1,138 +1,195 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 /* Estilo geral do corpo */
 body {
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 20px;
-  background-color: rgb(80, 216, 171);
+  font-family: 'Georgia', 'Times New Roman', Times, serif;
+  background-color: #3f1704;
+  color: #ac2727;
+  padding: 100px 20px 120px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-/* Título */
-.titulo {
-  text-align: center;
-  font-size: 2em;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  color: #333;
-  margin-bottom: 20px;
+/* Container */
+.container {
+  margin-top: 5%;
+  background-image: url('../img/fundo.png');
+  background-size: cover;    /* cobre toda a div */
+  background-position: center; /* centraliza */
+  background-repeat: no-repeat;
+  width: 90%;
+  max-width: 900px;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
-.container{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
- margin-left: 150px;
- align-items: center;
- justify-content: center;
 
- 
-}
-.container h1 {
-  text-align: left;
-  font-size: 2em;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  color: #000000;
-  margin-bottom: 20px;
-}
+/* Header fixo */
 header {
-  text-align: center;
-  font-size: 2em;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  color:white;
-  margin-bottom: 20px;
-  background-color: rgb(59, 6, 119);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  
-}
-footer {
+  background-color: #3b0677;
+  color: #fff;
   text-align: center;
-  font-size: 1em;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  color:white;
-  background-color: rgb(59, 6, 119);
+  padding: 20px 0;
+  font-size: 2.2em;
+  font-weight: 700;
+  font-family: 'Georgia', serif;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Footer fixo */
+footer {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 100px;
-  
-}
-/* Campo de tarefa */
-.campo-tarefa {
-  width: 60%;
-  padding: 10px;
+  background-color: #3b0677;
+  color: #fff;
+  text-align: center;
+  padding: 20px 10px;
+  font-family: 'Georgia', serif;
   font-size: 1em;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
 }
- 
-/* Botão de adicionar */
+
+/* Título */
+.titulo {
+  font-size: 2.4em;
+  margin-bottom: 30px;
+  font-weight: 700;
+  color: #c99015;
+  text-align: center;
+  font-family: 'Georgia', serif;
+}
+
+/* FORMULÁRIO EM COLUNA */
+form {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+/* Estilo geral dos inputs/selects */
+.campo-tarefa,
+select,
+input[type="date"] {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 15px;
+  font-size: 1em;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+  font-family: 'Georgia', serif;
+}
+
+/* Data com largura menor */
+input[type="date"] {
+  max-width: 150px;
+}
+
+/* Foco */
+.campo-tarefa:focus,
+select:focus,
+input[type="date"]:focus {
+  border-color: #009297;
+  outline: none;
+}
+
+/* Botão adicionar */
 .botao-adicionar {
   background-color: #009297;
-  color: white;
-  padding: 10px 15px;
+  color: #fff;
   border: none;
-  border-radius: 5px;
+  padding: 12px 25px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 1.1em;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
 }
- 
+
 .botao-adicionar:hover {
   background-color: #01595c;
 }
- 
+
 /* Lista de tarefas */
 .lista-tarefas {
   list-style: none;
-  padding: 0;
-  margin-top: 20px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
 }
- 
+
 /* Item da lista */
 .item-tarefa {
-  background-color: #d4d4d4;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 5px;
+  background-color: #e0e0e0;
+  margin-bottom: 12px;
+  padding: 15px 20px;
+  border-radius: 8px;
   display: flex;
-  justify-content:space-between;
-  
-width: 65%;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Georgia', serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
- 
-/* Botão de remover */
+
+/* Botões tarefa */
+.botao-remover,
+.botao-editar {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  color: #fff;
+  margin-left: 10px;
+}
+
 .botao-remover {
   background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
 }
- 
+
 .botao-remover:hover {
   background-color: #a71d2a;
 }
- 
-/* Botão de editar */
+
 .botao-editar {
   background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  position:relative;
-  
-  
 }
- 
+
 .botao-editar:hover {
   background-color: #0056b3;
 }
- 
- 
- 
- 
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .item-tarefa {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .botao-remover,
+  .botao-editar {
+    margin: 10px 10px 0 0;
+  }
+}

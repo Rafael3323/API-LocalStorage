@@ -12,13 +12,29 @@
         <h1> Lista de Tarefas</h1>
     </header>
     <div class="container">
-    <h1 class="titulo"> Minha Lista de Tarefas</h1>
+        <h1 class="titulo"> Minha Lista de Tarefas</h1>
    
-    <form>
-    <input class = "campo-tarefa" type = "text" placeholder="Digite uma tarefa"> <!-- Campo de texto para digitar a tarefa -->
+    <form style = "flex-direction: row; display: flex;">
+    <label for="tarefa">Tarefa:</label>
+    <input class = "campo-tarefa"  type = "text" placeholder="Digite uma tarefa" id = "tarefa">
+    <label for="descricao">Descrição:</label> <!-- Campo de texto para digitar a tarefa -->
+    <input class = "campo-tarefa"  type = "text" placeholder="Digite uma descrição" id="descricao">
+    <label for="status">status:</label>
+    <select id="status" name="status" style = "width: 20%;">
+      <option value="pendente">Pendente</option>
+      <option value="em andamento">Em andamento</option>
+      <option value="concluida">Concluida</option>
+    </select>
+    <label for="prioridade">Prioridade:</label>
+    <select id="prioridade" name="prioridade" style = "width: 20%;">
+      <option value="baixa">Baixa</option>
+      <option value="media">Média</option>
+      <option value="alta">Alta</option>
+    </select>
+    <label for="data">Data de entrega:</label>
+    <input type="date" id="data" name="data" value = "2025-12-31" > <!-- Campo de data para digitar a data de entrega da tarefa -->
     <button class ="botao-adicionar" type="submit">Adicionar</button> <!-- Botão para adicionar a tarefa -->
     </form>
- 
     <ul class="lista-tarefas"> <!-- Lista de tarefas -->
           
     </ul>
